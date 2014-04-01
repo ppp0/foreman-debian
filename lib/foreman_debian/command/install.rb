@@ -2,7 +2,7 @@ module ForemanDebian
   class Command::Install < Command
 
     def execute
-      $stderr.puts 'foo'
+      $stdout.puts 'Installing'
     end
   end
 end
