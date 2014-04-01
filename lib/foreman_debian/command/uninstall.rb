@@ -2,7 +2,7 @@ module ForemanDebian
   class Command::Uninstall < Command
 
     def execute
-      $stdout.puts 'Uninstalling'
+      get_engine.install({})
     end
   end
 end
