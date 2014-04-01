@@ -6,6 +6,11 @@ module ForemanDebian
       @output = $stdout
     end
 
+    def pidfile(name)
+      name = "#{@app}-#{name}"
+      Pathname.new('/var/run').join(name).join(name + '.pid')
+    end
+
     def cleanup
       Dir.glob @export_path.join("#{@app}-*") do |path|
         path = Pathname.new(path)

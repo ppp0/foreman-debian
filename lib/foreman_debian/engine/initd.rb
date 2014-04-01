@@ -4,17 +4,17 @@ module ForemanDebian
     include ForemanDebian::Engine::Helper
 
     def initialize(app, user, export_path = nil)
-      setup
       @app = app
       @user = user
       @export_path = Pathname.new(export_path || '/etc/init.d')
+      setup
     end
 
     def install(name, command)
-      name = "#{@app}-#{name}"
-      pidfile = Pathname.new('/var/run').join(name).join(name + '.pid')
+      pidfile = pidfile(name)
       args = Shellwords.split(command)
       script = args.shift
+      name = "#{@app}-#{name}"
 
       FileUtils.mkdir_p(@export_path)
       template = Template.new('initd_script')
