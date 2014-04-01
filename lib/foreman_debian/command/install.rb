@@ -8,11 +8,16 @@ module ForemanDebian
     def execute
       jobs = {}
       procfile.entries do |name, command|
-        args = Shellwords.split(command)
-        args[0] = Pathname.new(args[0]).expand_path(dir_root)
-      jobs[name] = Shellwords.join(args)
+        jobs[name] = expand_procfile_command(command)
       end
       get_engine.install(jobs)
+    end
+
+    def expand_procfile_command(command)
+      args = Shellwords.split(command)
+      args[0] = Pathname.new(args[0]).expand_path(dir_root)
+      Shellwords.join(args)
+
     end
 
     # @return [Pathname]
