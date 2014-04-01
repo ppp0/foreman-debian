@@ -10,6 +10,7 @@ module ForemanDebian
   require 'fileutils'
   require 'foreman_debian/template'
   require 'foreman_debian/engine'
+  require 'foreman_debian/engine/helper'
   require 'foreman_debian/engine/initd'
   require 'foreman_debian/engine/monit'
   require 'foreman_debian/command'
