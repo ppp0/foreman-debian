@@ -6,20 +6,29 @@ module ForemanDebian
            :default => 'Procfile'
 
     def execute
-
-      procfile = get_procfile
       jobs = {}
       procfile.entries do |name, command|
-        jobs[name] = command
+        args = Shellwords.split(command)
+        args[0] = Pathname.new(args[0]).expand_path(dir_root)
+      jobs[name] = Shellwords.join(args)
       end
       get_engine.install(jobs)
     end
 
+    # @return [Pathname]
+    def procfile_path
+      Pathname.new(optional_procfile).expand_path(Dir.getwd)
+    end
+
     # @return [Foreman::Procfile]
-    def get_procfile
-      procfile = Pathname.new(optional_procfile).expand_path(Dir.getwd)
-      raise "Procfile `#{procfile.to_s}` does not exist"  unless procfile.file?
-      Foreman::Procfile.new(procfile)
+    def procfile
+      raise "Procfile `#{procfile_path.to_s}` does not exist"  unless procfile_path.file?
+      Foreman::Procfile.new(procfile_path)
+    end
+
+    # @return [Pathname]
+    def dir_root
+      procfile_path.dirname
     end
   end
 end
