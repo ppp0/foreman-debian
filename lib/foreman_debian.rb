@@ -7,6 +7,7 @@ module ForemanDebian
   require 'shellwords'
   require 'erb'
   require 'ostruct'
+  require 'fileutils'
   require 'foreman_debian/template'
   require 'foreman_debian/engine'
   require 'foreman_debian/engine/initd'
