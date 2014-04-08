@@ -22,27 +22,12 @@ module ForemanDebian
         Script.new(script_path, name, name, @user, script, args, pidfile)
       end
 
-      def install(name, command)
-        pidfile = pidfile(name)
-        args = Shellwords.split(command)
-        script = args.shift
-        name = "#{@app}-#{name}"
-
-        FileUtils.mkdir_p(@export_path)
-        template = Template.new('initd_script')
-        output = template.render({
-                                     :name => name,
-                                     :user => @user,
-                                     :description => name,
-                                     :script => script,
-                                     :arguments => args,
-                                     :pidfile => pidfile,
-                                 })
-        script_path = @export_path.join(name)
-        File.open(script_path, 'w') do |file|
-          file.puts(output)
+      def install(script)
+        FileUtils.mkdir_p(script.path.dirname)
+        File.open(script.path, 'w') do |file|
+          file.puts(script.render)
           file.chmod(0755)
-          export_file(script_path)
+          export_file(script.path)
         end
       end
     end
