@@ -33,6 +33,18 @@ module ForemanDebian
         exec_command("update-rc.d #{script.path.basename} defaults") if script.path.dirname.eql? @system_export_path
       end
 
+      def start
+        each_file do |path|
+          exec_command("#{path.to_s} start")
+        end
+      end
+
+      def stop
+        each_file do |path|
+          exec_command("#{path.to_s} stop")
+        end
+      end
+
       def remove_file(path)
         exec_command("update-rc.d #{path.basename} remove") if path.dirname.eql? @system_export_path
         super(path)
@@ -40,14 +52,6 @@ module ForemanDebian
 
       def exec_command(command)
         `#{command}`
-      end
-
-      def start
-
-      end
-
-      def stop
-
       end
     end
   end
