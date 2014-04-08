@@ -10,6 +10,7 @@ module ForemanDebian
         @app = app
         @user = user
         @export_path = Pathname.new(export_path || '/etc/init.d')
+        @system_export_path = Pathname.new(@export_path)
         setup
       end
 
@@ -29,6 +30,16 @@ module ForemanDebian
           file.chmod(0755)
           export_file(script.path)
         end
+        exec_command("update-rc.d #{script.path.basename} defaults") if script.path.dirname.eql? @system_export_path
+      end
+
+      def remove_file(path)
+        exec_command("update-rc.d #{path.basename} remove") if path.dirname.eql? @system_export_path
+        super(path)
+      end
+
+      def exec_command(command)
+        `#{command}`
       end
     end
   end
