@@ -10,7 +10,7 @@ module ForemanDebian
         @app = app
         @user = user
         @export_path = Pathname.new(export_path || '/etc/init.d')
-        @system_export_path = Pathname.new(@export_path)
+        @system_export_path = Pathname.new('/etc/init.d')
         setup
       end
 
