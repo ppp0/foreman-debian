@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
 
   s.name = 'foreman_debian'
-  s.authors = ['Cargomedia', 'Tomasz Durka']
+  s.authors = ['Cargomedia']
   s.date = Date.today.to_s
-  s.email = 'tomasz@durka.pl'
-  s.homepage = 'https://github.com/tomaszdurka/github_issues_cli.git'
+  s.email = 'tomasz.durka@cargomedia.ch'
+  s.homepage = 'https://github.com/cargomedia/foreman-debian.git'
   s.license = 'MIT'
 
   s.summary = 'Foreman wrapper for debian'
