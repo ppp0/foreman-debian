@@ -4,17 +4,14 @@ module ForemanDebian
 
       include ForemanDebian::Engine::Helper
 
-      def initialize(app, user, export_path = nil, initd_engine)
+      def initialize(app, user, export_path = nil)
         @app = app
         @user = user
         @export_path = Pathname.new(export_path || '/etc/monit/conf.d')
-        @scripts_path = Pathname.new(scripts_path || '/etc/init.d')
-        @initd_engine = initd_engine
         setup
       end
 
-      def install(name, script_path)
-        pidfile = pidfile(name)
+      def install(name, script)
         name = "#{@app}-#{name}"
 
         FileUtils.mkdir_p(@export_path)
@@ -22,13 +19,13 @@ module ForemanDebian
         output = template.render({
                                      :app => @app,
                                      :name => name,
-                                     :pidfile => pidfile,
-                                     :script => @scripts_path.join(name)
+                                     :script_pidfile => script.pidfile,
+                                     :script_path => script.path,
                                  })
-        script_path = @export_path.join(name)
-        File.open(script_path, 'w') do |file|
+        config_path = @export_path.join(name)
+        File.open(config_path, 'w') do |file|
           file.puts(output)
-          export_file(script_path)
+          export_file(config_path)
         end
       end
     end
