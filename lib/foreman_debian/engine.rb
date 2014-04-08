@@ -4,8 +4,8 @@ module ForemanDebian
     def initialize(app, user)
       @app = app
       @user = user
-      @initd_engine = Initd::Engine.new(@app, @user, '/tmp/init.d')
-      @monit_engine = Monit::Engine.new(@app, @user, '/tmp/monit/conf.d')
+      @initd_engine = Initd::Engine.new(@app, @user)
+      @monit_engine = Monit::Engine.new(@app, @user)
     end
 
     def install(jobs)
