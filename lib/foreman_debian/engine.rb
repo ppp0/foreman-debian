@@ -22,5 +22,12 @@ module ForemanDebian
       install({})
     end
 
+    def start
+      @initd_engine.start
+    end
+
+    def stop
+      @initd_engine.stop
+    end
   end
 end

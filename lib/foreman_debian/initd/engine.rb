@@ -41,6 +41,14 @@ module ForemanDebian
       def exec_command(command)
         `#{command}`
       end
+
+      def start
+
+      end
+
+      def stop
+
+      end
     end
   end
 end
