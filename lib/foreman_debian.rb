@@ -15,7 +15,9 @@ module ForemanDebian
   require 'foreman_debian/initd/script'
   require 'foreman_debian/monit/engine'
   require 'foreman_debian/command'
-  require 'foreman_debian/command/uninstall'
   require 'foreman_debian/command/install'
+  require 'foreman_debian/command/uninstall'
+  require 'foreman_debian/command/start'
+  require 'foreman_debian/command/stop'
   require 'foreman_debian/command_manager'
 end
