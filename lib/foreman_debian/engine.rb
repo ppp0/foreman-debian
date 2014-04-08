@@ -19,6 +19,7 @@ module ForemanDebian
     end
 
     def uninstall
+      install({})
     end
 
   end
