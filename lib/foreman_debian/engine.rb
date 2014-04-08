@@ -5,7 +5,7 @@ module ForemanDebian
       @app = app
       @user = user
       @initd_engine = Engine::Initd.new(@app, @user, '/tmp/init.d')
-      @monit_engine = Engine::Monit.new(@app, @user, '/tmp/monit/conf.d')
+      @monit_engine = Engine::Monit.new(@app, @user, '/tmp/monit/conf.d', @initd_engine)
     end
 
     def install(jobs)
@@ -14,6 +14,7 @@ module ForemanDebian
         @monit_engine.install(name, command)
       end
       @initd_engine.cleanup
+      @monit_engine.cleanup
     end
 
     def uninstall

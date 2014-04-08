@@ -3,6 +3,8 @@ module ForemanDebian
 
     include ForemanDebian::Engine::Helper
 
+    attr_reader :export_path
+
     def initialize(app, user, export_path = nil)
       @app = app
       @user = user

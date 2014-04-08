@@ -3,15 +3,16 @@ module ForemanDebian
 
     include ForemanDebian::Engine::Helper
 
-    def initialize(app, user, export_path = nil, scripts_path = nil)
+    def initialize(app, user, export_path = nil, initd_engine)
       @app = app
       @user = user
       @export_path = Pathname.new(export_path || '/etc/monit/conf.d')
       @scripts_path = Pathname.new(scripts_path || '/etc/init.d')
+      @initd_engine = initd_engine
       setup
     end
 
-    def install(name, command)
+    def install(name, script_path)
       pidfile = pidfile(name)
       name = "#{@app}-#{name}"
 

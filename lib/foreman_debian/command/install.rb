@@ -17,7 +17,6 @@ module ForemanDebian
       args = Shellwords.split(command)
       args[0] = Pathname.new(args[0]).expand_path(dir_root)
       Shellwords.join(args)
-
     end
 
     # @return [Pathname]
