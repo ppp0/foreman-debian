@@ -1,10 +1,8 @@
 require 'spec_helper'
-require 'foreman_debian'
 
 describe ForemanDebian::Initd::Engine, :fakefs do
 
   module ForemanDebian::EngineHelper
-
     attr_reader :commands_run
 
     def exec_command(command)

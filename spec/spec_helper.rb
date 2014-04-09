@@ -1,8 +1,10 @@
 require 'fakefs/safe'
 require 'fakefs/spec_helpers'
+require 'foreman_debian'
 
 RSpec.configure do |c|
   c.treat_symbols_as_metadata_keys_with_true_values = true
+  ForemanDebian::logger = Logger.new('/dev/null')
 
   c.before(:each) do
     FakeFS.activate!
