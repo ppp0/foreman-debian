@@ -3,7 +3,6 @@ module ForemanDebian
   VERSION = '0.0.1'
 
   require 'clamp'
-  require 'term/ansicolor'
   require 'io/console'
   require 'json'
   require 'pathname'

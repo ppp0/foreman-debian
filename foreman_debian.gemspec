@@ -14,5 +14,4 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'clamp', '>= 0.5'
   s.add_runtime_dependency 'foreman', '>= 0.63.0'
-  s.add_runtime_dependency 'term-ansicolor', '>= 1.2.0'
 end
