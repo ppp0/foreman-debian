@@ -1,5 +1,5 @@
 module ForemanDebian
-  module Engine::Helper
+  module EngineHelper
 
     def setup
       @exported = []

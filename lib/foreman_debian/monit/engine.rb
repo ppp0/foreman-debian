@@ -2,7 +2,7 @@ module ForemanDebian
   module Monit
     class Engine
 
-      include ForemanDebian::Engine::Helper
+      include ForemanDebian::EngineHelper
 
       def initialize(app, user, export_path = nil)
         @app = app
