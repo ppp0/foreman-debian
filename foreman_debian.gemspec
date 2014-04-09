@@ -16,4 +16,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'foreman', '>= 0.63.0'
 
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'rspec', '>= 2.0'
+  s.add_development_dependency 'fakefs', '>= 0.4.3'
 end
