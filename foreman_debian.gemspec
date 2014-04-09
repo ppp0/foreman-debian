@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = 'foreman_debian'
   s.version = ForemanDebian::VERSION
   s.summary = 'Foreman wrapper for debian'
-  s.description = 'Agent to collect data for common server programs and push them to CopperEgg'
+  s.description = 'Simple wrapper providing installation of debian init script using foreman Procfile schema'
   s.authors = %w(cargomedia tomaszdurka)
   s.email = 'hello@cargomedia.ch'
   s.date = Date.today.to_s
