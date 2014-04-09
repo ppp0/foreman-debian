@@ -15,7 +15,7 @@ end
 
 def spec_resource(name)
   FakeFS.deactivate!
-  contents = Pathname.new('resources').expand_path(__dir__).join(name).read
+  contents = Pathname.new(__FILE__).dirname .join('resources').join(name).read
   FakeFS.activate!
   contents
 end
