@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name = 'foreman_debian'
   s.version = ForemanDebian::VERSION
   s.summary = 'Foreman wrapper for debian'
-  s.description = 'Simple wrapper providing installation of debian init script using foreman Procfile schema'
+  s.description = 'Wrapper around foreman and Procfile concept. It implements basic exporting, installing and uninstalling of initd scripts and monit configs for debian.'
   s.authors = %w(cargomedia tomaszdurka)
   s.email = 'hello@cargomedia.ch'
   s.date = Date.today.to_s
