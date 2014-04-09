@@ -8,6 +8,7 @@ module ForemanDebian
   require 'ostruct'
   require 'fileutils'
   require 'logger'
+  require 'open3'
   require 'foreman_debian/template'
   require 'foreman_debian/engine'
   require 'foreman_debian/engine_helper'

@@ -37,7 +37,13 @@ module ForemanDebian
     end
 
     def exec_command(command)
-      `#{command}`
+      Open3.popen3(command) do |i, o, e, w|
+        i.close
+        out, err, wait = o.read, e.read, w
+        s = wait ? wait.value : $?
+        s.success? or raise "Command `#{command}` failed: #{err}"
+        out
+      end
     end
   end
 end
