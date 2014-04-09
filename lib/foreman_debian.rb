@@ -10,6 +10,7 @@ module ForemanDebian
   require 'erb'
   require 'ostruct'
   require 'fileutils'
+  require 'logger'
   require 'foreman_debian/template'
   require 'foreman_debian/engine'
   require 'foreman_debian/engine_helper'

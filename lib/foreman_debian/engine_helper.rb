@@ -3,7 +3,7 @@ module ForemanDebian
 
     def setup
       @exported = []
-      @output = $stdout
+      @output = Logger.new(STDOUT)
     end
 
     def pidfile(name)
@@ -20,12 +20,12 @@ module ForemanDebian
 
     def export_file(path)
       @exported.push(path)
-      @output.puts " create  #{path.to_s} "
+      @output.info " create  #{path.to_s} "
     end
 
     def remove_file(path)
       File.unlink path
-      @output.puts " remove  #{path.to_s}"
+      @output.info " remove  #{path.to_s}"
     end
 
     def each_file(&block)
