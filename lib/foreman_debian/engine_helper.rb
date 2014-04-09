@@ -3,7 +3,7 @@ module ForemanDebian
 
     def setup
       @exported = []
-      @output = Logger.new(STDOUT)
+      @output = ForemanDebian::logger
     end
 
     def pidfile(name)

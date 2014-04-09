@@ -20,4 +20,12 @@ module ForemanDebian
   require 'foreman_debian/command/start'
   require 'foreman_debian/command/stop'
   require 'foreman_debian/command_manager'
+
+  def self.logger
+    @logger ||= Logger.new(STDOUT)
+  end
+
+  def self.logger=(logger)
+    @logger = logger
+  end
 end
