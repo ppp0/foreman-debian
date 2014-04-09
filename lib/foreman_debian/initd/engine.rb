@@ -30,23 +30,32 @@ module ForemanDebian
           file.chmod(0755)
           export_file(script.path)
         end
-        exec_command("update-rc.d #{script.path.basename} defaults") if script.path.dirname.eql? @system_export_path
       end
 
       def start
         each_file do |path|
-          exec_command("#{path.to_s} start")
+          start_file(path)
         end
       end
 
       def stop
         each_file do |path|
-          exec_command("#{path.to_s} stop")
+          stop_file(path)
         end
       end
 
-      def remove_file(path)
+      def start_file(path)
+        exec_command("#{path.to_s} start")
+        exec_command("update-rc.d #{path.basename} defaults") if path.dirname.eql? @system_export_path
+      end
+
+      def stop_file(path)
+        exec_command("#{path.to_s} stop")
         exec_command("update-rc.d #{path.basename} remove") if path.dirname.eql? @system_export_path
+      end
+
+      def remove_file(path)
+        stop_file(path)
         super(path)
       end
     end
