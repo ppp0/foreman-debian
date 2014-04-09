@@ -42,6 +42,5 @@ describe ForemanDebian::Initd::Engine, :fakefs do
     script_path = Pathname.new('/etc/init.d/foo')
     engine.stop_file(script_path)
     engine.commands_run.should === ['/etc/init.d/foo stop', 'update-rc.d foo remove']
-
   end
 end
