@@ -13,7 +13,7 @@ RSpec.configure do |c|
   end
 end
 
-def spec_resource (name)
+def spec_resource(name)
   FakeFS.deactivate!
   contents = Pathname.new('resources/stubs').expand_path(__dir__).join(name).read
   FakeFS.activate!
