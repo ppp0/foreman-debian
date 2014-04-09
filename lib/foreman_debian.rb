@@ -1,7 +1,4 @@
 module ForemanDebian
-
-  VERSION = '0.0.1'
-
   require 'clamp'
   require 'io/console'
   require 'json'
