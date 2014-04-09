@@ -49,10 +49,6 @@ module ForemanDebian
         exec_command("update-rc.d #{path.basename} remove") if path.dirname.eql? @system_export_path
         super(path)
       end
-
-      def exec_command(command)
-        `#{command}`
-      end
     end
   end
 end

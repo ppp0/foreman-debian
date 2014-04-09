@@ -35,5 +35,9 @@ module ForemanDebian
         block.call(path)
       end
     end
+
+    def exec_command(command)
+      `#{command}`
+    end
   end
 end
