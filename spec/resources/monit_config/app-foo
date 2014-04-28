@@ -3,4 +3,3 @@ check process app-foo with pidfile /var/run/initd-app-initd-foo/initd-app-initd-
 group app
 start program = "/etc/init.d/initd-app-initd-foo start"
 stop  program = "/etc/init.d/initd-app-initd-foo stop"
-if 25 restarts within 50 cycles
