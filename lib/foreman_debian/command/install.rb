@@ -2,15 +2,20 @@ module ForemanDebian
   class Command::Install < Command
 
     option %w(-f --procfile), '<path>', 'alternative Procfile',
-           :attribute_name => :optional_procfile,
+           :attribute_name => :procfile_path_relative,
            :default => 'Procfile'
+
+    option %w(-c --concurrency), '<encoded_hash>', 'concurrency (job1=0,job2=1)',
+           :attribute_name => :concurrency_encoded,
+           :default => 'all=1'
 
     def execute
       jobs = {}
       procfile.entries do |name, command|
         jobs[name] = expand_procfile_command(command)
       end
-      get_engine.install(jobs)
+      concurrency = decode_concurrency(concurrency_encoded)
+      get_engine.install(jobs, concurrency)
     end
 
     def expand_procfile_command(command)
@@ -21,12 +26,12 @@ module ForemanDebian
 
     # @return [Pathname]
     def procfile_path
-      Pathname.new(optional_procfile).expand_path(Dir.getwd)
+      Pathname.new(procfile_path_relative).expand_path(Dir.getwd)
     end
 
     # @return [Foreman::Procfile]
     def procfile
-      raise "Procfile `#{procfile_path.to_s}` does not exist"  unless procfile_path.file?
+      raise "Procfile `#{procfile_path.to_s}` does not exist" unless procfile_path.file?
       Foreman::Procfile.new(procfile_path)
     end
 
@@ -34,5 +39,17 @@ module ForemanDebian
     def dir_root
       procfile_path.dirname
     end
+
+    def decode_concurrency(concurrency_encoded)
+      concurrency_hash = {}
+      concurrency_encoded.split(',').each do |entry|
+        parts = entry.split('=')
+        raise 'Invalid concurrency option' unless parts.size == 2
+        name, concurrency = parts
+        concurrency_hash[name] = concurrency.to_i
+      end
+      concurrency_hash
+    end
+
   end
 end
