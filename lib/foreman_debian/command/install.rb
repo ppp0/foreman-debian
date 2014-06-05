@@ -23,7 +23,7 @@ module ForemanDebian
 
     def expand_procfile_command(command)
       args = Shellwords.split(command)
-      args[0] = Pathname.new(args[0]).expand_path(dir_root)
+      args[0] = Pathname.new(args[0]).expand_path(dir_root).to_s
       Shellwords.join(args)
     end
 

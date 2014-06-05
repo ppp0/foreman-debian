@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'foreman_debian'
-  s.version = '0.0.3'
+  s.version = '0.0.5'
   s.summary = 'Foreman wrapper for debian'
   s.description = 'Wrapper around foreman and Procfile concept. It implements basic exporting, installing and uninstalling of initd scripts and monit configs for debian.'
   s.authors = %w(cargomedia tomaszdurka)
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://github.com/cargomedia/foreman-debian'
   s.license = 'MIT'
 
-  s.files = Dir.glob 'lib/**/*'
+  s.files = Dir['lib/**/*', 'templates/*']
   s.executables = ['foreman-debian']
 
   s.add_runtime_dependency 'clamp', '~> 0.5'
