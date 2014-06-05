@@ -1,35 +1,35 @@
 module ForemanDebian
   class Engine
 
-    def initialize(app, user)
+    def initialize(app)
       @app = app
-      @user = user
-      @initd_engine = Initd::Engine.new(@app, @user)
-      @monit_engine = Monit::Engine.new(@app, @user)
     end
 
-    def install(jobs, concurrency)
+    def install(jobs, concurrency, user)
+      initd_engine = Initd::Engine.new(@app)
+      monit_engine = Monit::Engine.new(@app)
       jobs.each do |name, command|
         if job_concurrency(concurrency, name) > 0
-          script = @initd_engine.create_script(name, command)
-          @initd_engine.install(script)
-          @monit_engine.install(name, script)
+          script = @initd_engine.create_script(name, command, user)
+          initd_engine.install(script)
+          monit_engine.install(name, script)
         end
       end
-      @initd_engine.cleanup
-      @monit_engine.cleanup
+      initd_engine.cleanup
+      monit_engine.cleanup
     end
 
     def uninstall
-      install({}, {})
+      Initd::Engine.new(@app).cleanup
+      Monit::Engine.new(@app).cleanup
     end
 
     def start
-      @initd_engine.start
+      Initd::Engine.new(@app).start
     end
 
     def stop
-      @initd_engine.stop
+      Initd::Engine.new(@app).stop
     end
 
     def job_concurrency(concurrency, name)

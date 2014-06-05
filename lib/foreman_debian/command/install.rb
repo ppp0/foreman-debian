@@ -4,6 +4,10 @@ module ForemanDebian
     option %w(-f --procfile), '<path>', 'alternative Procfile',
            :attribute_name => :procfile_path_relative
 
+    option %w(-u --user), '<user>', 'Specify the user the application should be run as',
+           :attribute_name => :user,
+           :default => 'root'
+
     option %w(-c --concurrency), '<encoded_hash>', 'concurrency (job1=0,job2=1)',
            :attribute_name => :concurrency_encoded,
            :default => 'all=1'
@@ -18,7 +22,7 @@ module ForemanDebian
         jobs[name] = expand_procfile_command(command)
       end
       concurrency = decode_concurrency(concurrency_encoded)
-      get_engine.install(jobs, concurrency)
+      get_engine.install(jobs, concurrency, user)
     end
 
     def expand_procfile_command(command)
