@@ -2,12 +2,15 @@ module ForemanDebian
   class Command::Install < Command
 
     option %w(-f --procfile), '<path>', 'alternative Procfile',
-           :attribute_name => :procfile_path_relative,
-           :default => 'Procfile'
+           :attribute_name => :procfile_path_relative
 
     option %w(-c --concurrency), '<encoded_hash>', 'concurrency (job1=0,job2=1)',
            :attribute_name => :concurrency_encoded,
            :default => 'all=1'
+
+    option %w(-d --root), '<path>', 'working dir',
+           :attribute_name => :working_dir,
+           :default => Dir.getwd
 
     def execute
       jobs = {}
@@ -20,13 +23,14 @@ module ForemanDebian
 
     def expand_procfile_command(command)
       args = Shellwords.split(command)
-      args[0] = Pathname.new(args[0]).expand_path(dir_root)
+      args[0] = Pathname.new(args[0]).expand_path(dir_root).to_s
       Shellwords.join(args)
     end
 
     # @return [Pathname]
     def procfile_path
-      Pathname.new(procfile_path_relative).expand_path(Dir.getwd)
+      path_relative = procfile_path_relative || "#{working_dir}/Procfile"
+      Pathname.new(path_relative).expand_path(Dir.getwd)
     end
 
     # @return [Foreman::Procfile]
@@ -37,7 +41,7 @@ module ForemanDebian
 
     # @return [Pathname]
     def dir_root
-      procfile_path.dirname
+      Pathname.new(working_dir)
     end
 
     def decode_concurrency(concurrency_encoded)
