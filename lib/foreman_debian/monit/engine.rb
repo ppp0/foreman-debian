@@ -4,9 +4,8 @@ module ForemanDebian
 
       include ForemanDebian::EngineHelper
 
-      def initialize(app, user, export_path = nil)
+      def initialize(app, export_path = nil)
         @app = app
-        @user = user
         @export_path = Pathname.new(export_path || '/etc/monit/conf.d')
         setup
       end

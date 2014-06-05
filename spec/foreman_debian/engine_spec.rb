@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ForemanDebian::Engine, :fakefs do
 
-  let(:engine) { ForemanDebian::Engine.new('app', 'app-user') }
+  let(:engine) { ForemanDebian::Engine.new('app') }
 
   it 'job concurrency detects if job should be enabled' do
     {
