@@ -10,7 +10,7 @@ describe ForemanDebian::Command::Install, :fakefs do
         'bar==2' => :exception,
     }.each do |encoded, decoded|
       result = command.decode_concurrency(encoded) rescue :exception
-      expect(result) == decoded
+      expect(result).to be == decoded
     end
   end
 end

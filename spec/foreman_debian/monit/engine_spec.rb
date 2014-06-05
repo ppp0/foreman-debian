@@ -8,6 +8,6 @@ describe ForemanDebian::Initd::Engine, :fakefs do
     initd_engine = ForemanDebian::Initd::Engine.new('initd-app', 'initd-app-user')
     script = initd_engine.create_script('initd-foo', 'initd-bar arg1 arg2')
     engine.install('foo', script)
-    expect(File.read('/etc/monit/conf.d/app-foo')) == spec_resource('monit_config/app-foo')
+    expect(File.read('/etc/monit/conf.d/app-foo')).to be == spec_resource('monit_config/app-foo')
   end
 end
