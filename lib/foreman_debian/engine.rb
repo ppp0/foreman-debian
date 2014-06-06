@@ -10,7 +10,7 @@ module ForemanDebian
       monit_engine = Monit::Engine.new(@app)
       jobs.each do |name, command|
         if job_concurrency(concurrency, name) > 0
-          script = @initd_engine.create_script(name, command, user)
+          script = initd_engine.create_script(name, command, user)
           initd_engine.install(script)
           monit_engine.install(name, script)
         end
@@ -20,6 +20,7 @@ module ForemanDebian
     end
 
     def uninstall
+      stop
       Initd::Engine.new(@app).cleanup
       Monit::Engine.new(@app).cleanup
     end
