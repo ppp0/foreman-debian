@@ -50,7 +50,7 @@ module ForemanDebian
       def stop_file(path)
         exec_command("#{path.to_s} stop")
         @output.info "  stop  #{path.to_s}"
-        exec_command("update-rc.d #{path.basename} remove") if path.dirname.eql? @system_export_path
+        exec_command("update-rc.d -f #{path.basename} remove") if path.dirname.eql? @system_export_path
       end
 
       def remove_file(path)
