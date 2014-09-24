@@ -25,10 +25,17 @@ describe ForemanDebian::Initd::Engine, :fakefs do
   end
 
   it 'installs script' do
-    script = engine.create_script('foo', 'bar arg1 arg2', 'app-user')
+    script = engine.create_script('foo', 'bar arg1 arg2', 'app-user', 'TERM/5/TERM/5/KILL')
     engine.install(script)
     expect(File.read('/etc/init.d/app-foo')).to be == spec_resource('initd_script/app-foo')
   end
+
+  it 'installs script with default timeout' do
+    script = engine.create_script('foo', 'bar arg1 arg2', 'app-user')
+    engine.install(script)
+    expect(File.read('/etc/init.d/app-foo')).to be == spec_resource('initd_script/app-foo-default-timeout')
+  end
+
 
   it 'starts script' do
     script_path = Pathname.new('/etc/init.d/foo')
