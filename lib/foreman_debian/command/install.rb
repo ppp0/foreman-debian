@@ -26,7 +26,7 @@ module ForemanDebian
         jobs[name] = expand_procfile_command(command)
       end
       concurrency = decode_concurrency(concurrency_encoded)
-      get_engine.install(jobs, concurrency, user)
+      get_engine.install(jobs, concurrency, user, timeout_schedule)
     end
 
     def expand_procfile_command(command)
