@@ -16,10 +16,6 @@ module ForemanDebian
            :attribute_name => :working_dir,
            :default => Dir.getwd
 
-    option %w(-R --retry), '<timeout|schedule>', 'Timeout or schedule when stopping (see man start-stop-daemon)',
-           :attribute_name => :timeout_schedule,
-           :default => '20'
-
     def execute
       jobs = {}
       procfile.entries do |name, command|
