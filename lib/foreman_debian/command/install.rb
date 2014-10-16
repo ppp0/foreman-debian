@@ -16,17 +16,13 @@ module ForemanDebian
            :attribute_name => :working_dir,
            :default => Dir.getwd
 
-    option %w(-R --retry), '<timeout|schedule>', 'Timeout or schedule when stopping (see man start-stop-daemon)',
-           :attribute_name => :timeout_schedule,
-           :default => '20'
-
     def execute
       jobs = {}
       procfile.entries do |name, command|
         jobs[name] = expand_procfile_command(command)
       end
       concurrency = decode_concurrency(concurrency_encoded)
-      get_engine.install(jobs, concurrency, user, timeout_schedule)
+      get_engine.install(jobs, concurrency, user)
     end
 
     def expand_procfile_command(command)
